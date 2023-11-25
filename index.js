@@ -1,1 +1,0 @@
-consol.log('Salut à tous bande de fou !')
