@@ -1,9 +1,0 @@
-*:not(h1, h2){
-    font-size: 12px;
-}
-
-form:nth-child(3n) label {
-    border-style: dotted;
-    
-}
-
