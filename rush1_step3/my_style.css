@@ -2,8 +2,44 @@
     font-size: 12px;
 }
 
-form:nth-child(3n) label {
+form :nth-child(3n) input {
     border-style: dotted;
-    
+    border-width: 2px;
+    border-color: blue;
 }
 
+form input {
+    cursor: pointer;
+}
+
+form button {
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 5px 0px 0px black;
+    margin-top: 50px;
+}
+
+.form-radio-block, .civilite-form-block, .name-form-block, .email-form-block, .tel-form-block, .website-form-block, .date-form-block, .checkbox-form-block {
+    margin-left: 150px;
+    margin-bottom: 15px;
+}
+
+#civilite, #name, #email, #tel, #website, #birthday {
+    display: flex;
+    align-items: flex-end;
+}
+
+.error-message-field {
+    color: red;
+    font-size: 12px;
+}
+
+.error-message-checkbox {
+    color: red;
+    font-size: 12px;
+}
+
+.error-message-radio {
+    color: red;
+    font-size: 12px;
+}
