@@ -43,3 +43,7 @@ form button {
     color: red;
     font-size: 12px;
 }
+
+.error {
+    border: 1px solid red;
+}
