@@ -1,5 +1,3 @@
-console.log("Bonjour je suis connecté");
-
 // Faire la validation du formulaire en javascript
 
 // Afficher les champs en erreur en rouge. et afficher un message en rouge
@@ -33,43 +31,21 @@ myForm.addEventListener('submit', e => {
 
 function validateRadio() {
     // Récupérer les radio boutons par leur nom
-    let hommeButtons = document.getElementsByName('homme');
-    let femmeButtons = document.getElementsByName('femme');
-    let autresButtons = document.getElementsByName('autres');
+    let genreButtons = document.getElementsByName('genre');
 
-    // Vérifier si au moins un radio bouton est sélectionné
-    let hommeIsValid = false;
-    for (let i = 0; i < hommeButtons.length; i++) {
-        if (hommeButtons[i].checked) {
-            hommeIsValid = true;
-            break;
-        }
-    }
-
-    // Vérifier si au moins un radio bouton est sélectionné
-    let femmeIsValid = false;
-    for (let i = 0; i < femmeButtons.length; i++) {
-        if (femmeButtons[i].checked) {
-            femmeIsValid = true;
-            break;
-        }
-    }
-
-    // Vérifier si au moins un radio bouton est sélectionné
-    let autresIsValid = false;
-    for (let i = 0; i < autresButtons.length; i++) {
-        if (autresButtons[i].checked) {
-            autresIsValid = true;
-            break;
+    // Parcourir tous les boutons radio et trouver celui qui est coché
+    let valeurSelectionnee = null;
+    for (let i = 0; i < genreButtons.length; i++) {
+        if (genreButtons[i].checked) {
+            valeurSelectionnee = genreButtons[i].value;
+            break; // Sortir de la boucle une fois qu'on a trouvé le bouton coché
         }
     }
 
     return {
-        femme: femmeIsValid,
-        homme: hommeIsValid,
-        autres: autresIsValid,
-        error : () => {
-            if(!this.femme && !this.homme && !this.autres) {
+        value: valeurSelectionnee,
+        error : function() {
+            if(!valeurSelectionnee) {
                 return "Vous devez séléctionnez un choix de genre";
             } else {
                 return false;
@@ -133,7 +109,7 @@ function validateCheckBox() {
         lecture: IsValidLectureCheckBox,
         sport: IsValidSportCheckBox,
         informatique: isValidInformatiqueCheckBox,
-        error: () => {
+        error: function() {
             if(!this.game && !this.cinema && !this.lecture && !this.sport && !this.informatique) {
                 return "Vous devez séléctionnez aux moins un hobby";
             } else {
@@ -183,19 +159,19 @@ function validateField() {
     for(let i = 0; i < telInput.length; i++) {
         telValue = telInput[i].value;
         telIsValid = validatePhoneNumber(telValue);
-        telError = validatePhoneNumber(telValue) ? false : "Votre numéro de téléphone est invalide.";
+        telError = validatePhoneNumber(telValue) ? false : "Votre numéro de téléphone est invalide il doit contenir 10 chiffres.";
     }
 
     for(let i = 0; i < nameInput.length; i++) {
         websiteValue = websiteInput[i].value;
         websiteIsValid = validateURL(websiteValue);
-        websiteError = validateURL(websiteValue) ? false : "L'url de votre site web est invalide.";
+        websiteError = validateURL(websiteValue) ? false : "L'url de votre site web est invalide il doit contenir https://nom-de-votre-site-web.fr.";
     }
 
     for(let i = 0; i < nameInput.length; i++) {
         birthdayValue = birthdayInput[i].value;
         birthdayIsValid = validateDateOfBirth(birthdayValue);
-        birthdayError = validateDateOfBirth(birthdayValue) ? false : "Votre date de naissance est invalide.";
+        birthdayError = validateDateOfBirth(birthdayValue) ? false : "Votre date de naissance est invalide car elle doit être inférieur à la date actuel.";
     }
 
     return {
@@ -232,10 +208,41 @@ function validateForm(data) {
         let checkBoxFormData = validateCheckBox();
         let radioFormData = validateRadio();
         let fieldFormData = validateField();
-        // TODO: Ajouter les conditions pour afficher les erreurs.
-        console.log(fieldFormData, checkBoxFormData, radioFormData);
+
+        // Gestion des erreur des checkbox
+        if(checkBoxFormData.error()){
+            let checkBoxDisplayErrorElement = document.getElementById('error-message-checkbox');
+            checkBoxDisplayErrorElement.innerText = checkBoxFormData.error();
+
+            // Supprimer le message d'erreur au bout de 10 secondes
+            setTimeout(() => {
+                checkBoxDisplayErrorElement.innerHTML = "";
+            }, 10000); // 10 secondes.
+        }
+
+        // gestion des erreur des radio
+        if(radioFormData.error()) {
+            let radioBoxDisplayErrorElement = document.getElementById('error-message-radio');
+            radioBoxDisplayErrorElement.innerHTML = radioFormData.error();
+
+            // Supprimer le message d'erreur au bout de 10 secondes
+            setTimeout(() => {
+                radioBoxDisplayErrorElement.innerHTML = "";
+            }, 10000); // 10 secondes.
+        }
+
+        let fieldDisplayErrorElement = document.getElementById('error-message-field');
+        for(let item in fieldFormData) {
+            if (fieldFormData[item].error) {
+                fieldDisplayErrorElement.innerHTML += `${fieldFormData[item].error} <br>`;
+            }
+        }
+
+        setTimeout(() => {
+            fieldDisplayErrorElement.innerHTML = "";
+        }, 10000) // 10 secondes
     } else {
-        alert("Une erreur est survenue");
+        alert("Une erreur est survenue lors de l'envoie de votre formulaire, veuillez réessayer");
     }
 }
 

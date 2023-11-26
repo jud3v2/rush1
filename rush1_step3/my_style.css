@@ -29,17 +29,17 @@ form button {
     align-items: flex-end;
 }
 
-.error-message-field {
+#error-message-field {
     color: red;
     font-size: 12px;
 }
 
-.error-message-checkbox {
+#error-message-checkbox {
     color: red;
     font-size: 12px;
 }
 
-.error-message-radio {
+#error-message-radio {
     color: red;
     font-size: 12px;
 }

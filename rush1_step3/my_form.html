@@ -10,15 +10,15 @@
 </head>
 <body>
 <div>
-    <form action="" method="POST">
+    <form action="" method="POST" id="myForm">
         <div class="form-radio-block">
-            <input type="radio" id="homme" name="homme" value="homme" />
+            <input type="radio" id="homme" name="genre" value="homme" />
             <label for="homme">Homme</label>
 
-            <input type="radio" id="femme" name="femme" value="femme" />
+            <input type="radio" id="femme" name="genre" value="femme" />
             <label for="femme">Femme</label>
 
-            <input type="radio" id="autre" name="autre" value="autre" />
+            <input type="radio" id="autre" name="genre" value="autre" />
             <label for="autre">Autres</label>
         </div>
 
@@ -57,7 +57,7 @@
 
         <div class="checkbox-form-block">
             <div>
-                <input type="checkbox" id="game" name="game" checked />
+                <input type="checkbox" id="game" name="game" />
                 <label for="game">Jeux Vidéos</label>
             </div>
 
@@ -90,6 +90,18 @@
             </div>
         </div>
     </form>
+
+    <div>
+        <p id="error-message-field"></p>
+    </div>
+
+    <div>
+        <p id="error-message-checkbox"></p>
+    </div>
+
+    <div>
+        <p id="error-message-radio"></p>
+    </div>
 </div>
 
 <script src="my_script.js"></script>
